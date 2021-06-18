@@ -51,12 +51,12 @@ class BooksApp extends React.Component {
 
 
   handleSearch = (query) => {
-    return query.length > 0 ?
-    BooksAPI.search(query).then((results) =>
+    !query ?
+        this.setState({searchResults: []})
+        : BooksAPI.search(query).then((results) =>
     {
-      console.log("results", results);
-      this.setState({searchResults: results.length > 0 ? results : []})
-    }) : null;
+      this.setState({searchResults: Array.isArray(results)? results : []})
+    }).catch((error) =>{console.log(error)}) ;
     }
 
 
@@ -84,8 +84,10 @@ class BooksApp extends React.Component {
           return (<div className="search-books">
             <Search handleSearch={this.handleSearch}/>
             <div className="search-books-results">
-              <Library shelves={[...this.state.shelves, "none"]} books={this.state.searchResults} changeShelf={this.handleChangeShelf}
-              search={true}
+              <Library shelves={[...this.state.shelves, "none"]}
+                       books={this.state.searchResults}
+                       changeShelf={this.handleChangeShelf}
+                  currentBooks={this.state.books}
               />
             </div>
           </div>)

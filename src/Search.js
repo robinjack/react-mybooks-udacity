@@ -10,8 +10,8 @@ class Search extends Component {
     state = {value: ''}
 
     onChange = (event) => {
-        this.setState({value : event.target.value});
-        this.search(event);
+        this.setState({value : event.target.value},
+            () => {this.search(event)})
     }
 
     clearValue = () => {
@@ -19,7 +19,7 @@ class Search extends Component {
     }
 
     search = (event) => {
-        event.preventDefault();
+        event.persist();
         this.props.handleSearch(this.state.value)
     }
 

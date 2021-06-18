@@ -12,9 +12,9 @@ class BookList extends Component {
             <ol className={"books-grid"}>
             {this.props.books.map((book) =>
                 (<Book
+                    key={book.id}
                     bookId={book.id}
-                    url={book.imageLinks? book.imageLinks.smallThumbnail : null
-                        } title={book.title} author={book.author}
+                    url={book.imageLinks? book.imageLinks.smallThumbnail : null} title={book.title} author={book.author}
                 shelf={book.shelf}
                        changeShelf={this.props.changeShelf}
                 />)
