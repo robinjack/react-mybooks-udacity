@@ -13,7 +13,8 @@ class BookList extends Component {
             {this.props.books.map((book) =>
                 (<Book
                     bookId={book.id}
-                    url={book.imageLinks.smallThumbnail} title={book.title} author={book.author}
+                    url={book.imageLinks? book.imageLinks.smallThumbnail : null
+                        } title={book.title} author={book.author}
                 shelf={book.shelf}
                        changeShelf={this.props.changeShelf}
                 />)

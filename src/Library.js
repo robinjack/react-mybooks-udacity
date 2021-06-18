@@ -9,7 +9,7 @@ class Library extends Component {
     isShelf = (bookShelf, testShelf) => {return testShelf === "none" ? bookShelf === undefined : bookShelf === testShelf};
 
     render =() => {
-        console.log(this.props.books);
+
         return this.props.books ?
              (
                  <div>

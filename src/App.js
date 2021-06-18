@@ -20,7 +20,7 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    shelves : ["wantToRead", "currentlyReading", "read", "none"],
+    shelves : ["wantToRead", "currentlyReading", "read"],
     books : [],
     searchResults : []
   }
@@ -51,11 +51,12 @@ class BooksApp extends React.Component {
 
 
   handleSearch = (query) => {
+    return query.length > 0 ?
     BooksAPI.search(query).then((results) =>
     {
       console.log("results", results);
-      this.setState({searchResults: results})
-    })
+      this.setState({searchResults: results.length > 0 ? results : []})
+    }) : null;
     }
 
 
@@ -69,7 +70,9 @@ class BooksApp extends React.Component {
                   <div className="list-books-title">
                     <h1>MyReads</h1>
                   </div>
-                  <Library shelves={this.state.shelves} books={this.state.books} changeShelf={this.handleChangeShelf}/>
+                  <Library shelves={this.state.shelves} books={this.state.books} changeShelf={this.handleChangeShelf}
+
+                  />
                   <div className="open-search">
                     <Link to={'/search'} className={'link-search'}> Search </Link>
                   </div>
@@ -81,7 +84,9 @@ class BooksApp extends React.Component {
           return (<div className="search-books">
             <Search handleSearch={this.handleSearch}/>
             <div className="search-books-results">
-              <Library shelves={this.state.shelves} books={this.state.searchResults} changeShelf={this.handleChangeShelf}/>
+              <Library shelves={[...this.state.shelves, "none"]} books={this.state.searchResults} changeShelf={this.handleChangeShelf}
+              search={true}
+              />
             </div>
           </div>)
         }} />

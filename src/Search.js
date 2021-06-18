@@ -10,7 +10,8 @@ class Search extends Component {
     state = {value: ''}
 
     onChange = (event) => {
-        this.setState({value : event.target.value})
+        this.setState({value : event.target.value});
+        this.search(event);
     }
 
     clearValue = () => {
@@ -35,9 +36,8 @@ class Search extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <form onSubmit={this.search}>
+
             <input type="text" placeholder="Search by title or author" onChange={this.onChange} />
-                </form>
 
         </div>
     </div>)}
